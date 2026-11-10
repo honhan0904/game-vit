@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>Bé Học Đếm Số Thứ Tự Cùng Động Vật</title>
-  <script type="text/javascript" nonce="1a06c3063ef045ea993c13e611e" src="//local.adguard.org?ts=1794319625904&amp;type=content-script&amp;dmn=file-stal-2.dlfl.vn&amp;url=https%3A%2F%2Ffile-stal-2.dlfl.vn%2Fno%2Ff288ee9ccb271f794636%2FAgHc8GGFmY3I1aetjfVmJIG4WowstTPZgnFJ0aCno&amp;app=chrome.exe&amp;css=3&amp;js=1&amp;rel=1&amp;rji=1&amp;sbe=1&amp;stealth=1&amp;st-dnt"></script><script type="text/javascript" nonce="1a06c3063ef045ea993c13e611e" src="//local.adguard.org?ts=1794319625904&amp;name=AdGuard%20Extra&amp;name=AdGuard%20Popup%20Blocker&amp;type=user-script"></script><script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@600;700&family=Nunito:wght@700;800;900&display=swap" rel="stylesheet">
@@ -78,25 +78,30 @@
 </head>
 <body class="bg-gradient-to-b from-sky-100 via-amber-50 to-emerald-50 min-h-screen text-slate-800 flex flex-col justify-between overflow-x-hidden p-2 sm:p-4">
 
-  <!-- Canvas Pháo hoa chúc mừng -->
-  <canvas id="confettiCanvas" class="fixed inset-0 pointer-events-none z-50"></canvas>
-
   <!-- Header Banner & Bảng Điểm Số -->
   <header class="w-full max-w-6xl mx-auto py-2 sm:py-3 px-4 bg-white/85 backdrop-blur-md rounded-3xl shadow-sm border border-white flex flex-col md:flex-row items-center justify-between gap-3">
     <div class="flex items-center gap-2">
       <span class="text-3xl sm:text-4xl animate-bounce">⭐</span>
       <div>
         <h1 class="text-xl sm:text-2xl font-extrabold text-amber-600 tracking-wide font-kid">Bé Học Số Thứ Tự Vui Nhộn</h1>
-        <p class="text-[11px] sm:text-xs text-slate-500 font-bold">Điền đúng số nhảy điểm liền tay • Nhận trọn 80 điểm!</p>
+        <p class="text-[11px] sm:text-xs text-slate-500 font-bold">Mỗi câu trả lời đúng nhảy 10 điểm riêng cho từng đàn vịt!</p>
       </div>
     </div>
 
-    <!-- Bảng Điểm Nhảy Sinh Động -->
-    <div class="flex items-center gap-3">
-      <div id="scoreBox" class="flex items-center gap-2 bg-gradient-to-r from-amber-400 via-yellow-400 to-amber-500 text-amber-950 px-4 py-2 rounded-2xl shadow-md border-2 border-amber-300 font-black transition-transform">
-        <span class="text-2xl">🏆</span>
-        <span class="text-sm uppercase tracking-wider font-extrabold">Điểm:</span>
-        <span id="scoreText" class="text-2xl sm:text-3xl font-black text-rose-700 bg-white/80 px-3 py-0.5 rounded-xl min-w-[54px] text-center shadow-inner">0</span>
+    <!-- Bảng Điểm Riêng Biệt Cho Cột 1 và Cột 3 -->
+    <div class="flex items-center gap-2 sm:gap-3 flex-wrap justify-center">
+      <!-- Điểm Cột 1 -->
+      <div id="scoreBoxDuck1" class="flex items-center gap-1.5 sm:gap-2 bg-gradient-to-r from-amber-400 to-amber-500 text-amber-950 px-3 py-1.5 rounded-2xl shadow border-2 border-amber-300 font-black transition-transform">
+        <span class="text-lg sm:text-xl">🦆 Điểm Cột 1:</span>
+        <span id="scoreTextDuck1" class="text-xl sm:text-2xl font-black text-rose-700 bg-white/90 px-2.5 py-0.5 rounded-xl min-w-[42px] text-center shadow-inner">0</span>
+        <span class="text-[10px] text-amber-900 font-extrabold">/40</span>
+      </div>
+
+      <!-- Điểm Cột 3 -->
+      <div id="scoreBoxDuck2" class="flex items-center gap-1.5 sm:gap-2 bg-gradient-to-r from-teal-400 to-emerald-500 text-teal-950 px-3 py-1.5 rounded-2xl shadow border-2 border-teal-300 font-black transition-transform">
+        <span class="text-lg sm:text-xl">🦆 Điểm Cột 3:</span>
+        <span id="scoreTextDuck2" class="text-xl sm:text-2xl font-black text-rose-700 bg-white/90 px-2.5 py-0.5 rounded-xl min-w-[42px] text-center shadow-inner">0</span>
+        <span class="text-[10px] text-teal-950 font-extrabold">/40</span>
       </div>
 
       <div class="flex items-center gap-2">
@@ -122,7 +127,12 @@
             <span class="text-2xl sm:text-3xl">🦆</span>
             <h2 class="text-base sm:text-lg font-black text-amber-800">CỘT 1: ĐÀN VỊT</h2>
           </div>
-          <span class="text-xs bg-amber-200 text-amber-900 font-extrabold px-2.5 py-1 rounded-full">Trái ➡️ Phải</span>
+          <div class="flex items-center gap-2">
+            <span class="text-xs bg-amber-400/90 text-amber-950 font-black px-2 py-0.5 rounded-lg border border-amber-500 shadow-sm">
+              Điểm: <span id="colScoreDuck1">0</span>/40
+            </span>
+            <span class="text-xs bg-amber-200 text-amber-900 font-extrabold px-2.5 py-1 rounded-full">Trái ➡️ Phải</span>
+          </div>
         </div>
 
         <!-- Mũi tên chỉ hướng Trái -> Phải -->
@@ -201,7 +211,12 @@
             <span class="text-2xl sm:text-3xl">🦆</span>
             <h2 class="text-base sm:text-lg font-black text-teal-800">CỘT 3: ĐÀN VỊT</h2>
           </div>
-          <span class="text-xs bg-teal-200 text-teal-900 font-extrabold px-2.5 py-1 rounded-full">Phải ⬅️ Trái</span>
+          <div class="flex items-center gap-2">
+            <span class="text-xs bg-teal-400/90 text-teal-950 font-black px-2 py-0.5 rounded-lg border border-teal-500 shadow-sm">
+              Điểm: <span id="colScoreDuck2">0</span>/40
+            </span>
+            <span class="text-xs bg-teal-200 text-teal-900 font-extrabold px-2.5 py-1 rounded-full">Phải ⬅️ Trái</span>
+          </div>
         </div>
 
         <!-- Mũi tên chỉ hướng PHẢI -> TRÁI -->
@@ -251,29 +266,6 @@
     </section>
 
   </main>
-
-  <!-- Thanh điều khiển phía dưới -->
-  <footer class="w-full max-w-xl mx-auto flex items-center justify-center gap-3 py-2 z-10">
-    <button id="btnReset" class="w-full sm:w-auto bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white font-black text-base px-8 py-3 rounded-2xl shadow-md bubble-shadow btn-press flex items-center justify-center gap-2 transition-all">
-      <span class="text-xl">🔄</span> Chơi Lại Từ Đầu
-    </button>
-  </footer>
-
-  <!-- Modal Chúc mừng khi hoàn thành trọn vẹn -->
-  <div id="resultModal" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center hidden p-4">
-    <div id="modalBox" class="bg-white rounded-3xl p-6 sm:p-8 max-w-md w-full text-center shadow-2xl border-4 border-emerald-400 transform transition-all scale-95 duration-300">
-      <div class="text-6xl mb-3 animate-bounce">🏆🌟🎉</div>
-      <h3 class="text-2xl sm:text-3xl font-black text-emerald-600 mb-2 font-kid">XUẤT SẮC QUÁ BÉ ƠI!</h3>
-      <p class="text-slate-700 font-extrabold text-base mb-1">Bé thật thông minh! Điểm tuyệt đối:</p>
-      <div class="inline-block bg-amber-100 border-2 border-amber-300 text-amber-900 text-3xl font-black px-6 py-2 rounded-2xl my-3 shadow-inner">
-        ⭐ 80 / 80 ĐIỂM ⭐
-      </div>
-      <p class="text-slate-500 text-sm font-bold mb-6">Bé đã hoàn thành xuất sắc trò chơi đếm thứ tự hai đàn vịt!</p>
-      <button id="btnPlayAgain" class="w-full bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white font-extrabold py-3.5 px-6 rounded-2xl text-lg shadow-lg btn-press transition-all">
-        🔄 Chơi Lại Từ Đầu
-      </button>
-    </div>
-  </div>
 
   <!-- JavaScript xử lý Game Engine -->
   <script>
@@ -368,14 +360,21 @@
     const sound = new SoundFX();
 
     // --- State Game ---
-    let currentScore = 0;
+    let scoreDuck1 = 0; // Điểm Cột 1 (tối đa 40)
+    let scoreDuck2 = 0; // Điểm Cột 3 (tối đa 40)
     let selectedNumber = null;
     // Chú vịt khác màu ở Cột 1 và Cột 3 cùng màu và cùng vị trí chỉ số (index)
     let specialDuckIdx = 3; 
     let solvedCount = 0;
 
-    const scoreText = document.getElementById('scoreText');
-    const scoreBox = document.getElementById('scoreBox');
+    const scoreTextDuck1 = document.getElementById('scoreTextDuck1');
+    const scoreBoxDuck1 = document.getElementById('scoreBoxDuck1');
+    const colScoreDuck1 = document.getElementById('colScoreDuck1');
+
+    const scoreTextDuck2 = document.getElementById('scoreTextDuck2');
+    const scoreBoxDuck2 = document.getElementById('scoreBoxDuck2');
+    const colScoreDuck2 = document.getElementById('colScoreDuck2');
+
     const duckContainer = document.getElementById('duckContainer');
     const duckContainerRight = document.getElementById('duckContainerRight');
     const numberPool = document.getElementById('numberPool');
@@ -523,12 +522,22 @@
     }
 
     // --- Xử lý Tương tác & Điểm số ---
-    function updateScore(pointsToAdd) {
-      currentScore += pointsToAdd;
-      scoreText.textContent = currentScore;
-      scoreBox.classList.remove('score-pop');
-      void scoreBox.offsetWidth;
-      scoreBox.classList.add('score-pop');
+    function updateScoreForGroup(group, pointsToAdd) {
+      if (group === 'duck') {
+        scoreDuck1 += pointsToAdd;
+        scoreTextDuck1.textContent = scoreDuck1;
+        colScoreDuck1.textContent = scoreDuck1;
+        scoreBoxDuck1.classList.remove('score-pop');
+        void scoreBoxDuck1.offsetWidth;
+        scoreBoxDuck1.classList.add('score-pop');
+      } else if (group === 'duckRight') {
+        scoreDuck2 += pointsToAdd;
+        scoreTextDuck2.textContent = scoreDuck2;
+        colScoreDuck2.textContent = scoreDuck2;
+        scoreBoxDuck2.classList.remove('score-pop');
+        void scoreBoxDuck2.offsetWidth;
+        scoreBoxDuck2.classList.add('score-pop');
+      }
     }
 
     function showFloatingScore(element) {
@@ -551,9 +560,10 @@
       if (zone.dataset.isLocked === 'true') return;
 
       const correctNumber = zone.dataset.correct;
+      const group = zone.dataset.targetGroup;
 
       if (placedNumber === correctNumber) {
-        // ĐIỀN ĐÚNG -> NHẢY ĐIỂM NGAY LẬP TỨC
+        // ĐIỀN ĐÚNG -> NHẢY ĐIỂM CHO RIÊNG CỘT TƯƠNG ỨNG
         zone.dataset.isLocked = 'true';
         zone.dataset.placedNumber = placedNumber;
         zone.classList.remove('border-dashed', 'hover:border-amber-500', 'hover:border-teal-500', 'cursor-pointer');
@@ -567,20 +577,11 @@
           </div>
         `;
 
-        // Nhảy điểm +10 ngay lập tức
-        updateScore(10);
+        // Nhảy riêng +10 điểm cho cột tương ứng
+        updateScoreForGroup(group, 10);
         showFloatingScore(zone);
         sound.playScorePing();
         solvedCount++;
-
-        // Kiểm tra chiến thắng cả 8 vịt
-        if (solvedCount === 8) {
-          setTimeout(() => {
-            sound.playVictory();
-            triggerConfetti();
-            document.getElementById('resultModal').classList.remove('hidden');
-          }, 600);
-        }
       } else {
         // ĐIỀN SAI -> RUNG LẮC, ÂM THANH BÁO VÀ KHÔNG TÍNH ĐIỂM
         sound.playWrong();
@@ -648,18 +649,6 @@
       });
     }
 
-    document.getElementById('btnReset').addEventListener('click', () => {
-      sound.init();
-      sound.playSelect();
-      resetGame(false);
-    });
-
-    document.getElementById('btnPlayAgain').addEventListener('click', () => {
-      sound.init();
-      sound.playSelect();
-      resetGame(false);
-    });
-
     // Nút đọc giọng nói hướng dẫn
     document.getElementById('btnVoice').addEventListener('click', () => {
       sound.init();
@@ -680,71 +669,6 @@
       sound.muted = !sound.muted;
       soundIcon.textContent = sound.muted ? '🔇' : '🔔';
     });
-
-    // Canvas Confetti
-    const canvas = document.getElementById('confettiCanvas');
-    const ctx = canvas.getContext('2d');
-    let confettiParticles = [];
-    let animationFrameId = null;
-
-    function resizeCanvas() {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-    }
-    window.addEventListener('resize', resizeCanvas);
-    resizeCanvas();
-
-    function triggerConfetti() {
-      confettiParticles = [];
-      const colors = ['#f43f5e', '#3b82f6', '#10b981', '#f59e0b', '#8b5cf6', '#ec4899'];
-      for (let i = 0; i < 140; i++) {
-        confettiParticles.push({
-          x: canvas.width / 2,
-          y: canvas.height / 2,
-          w: Math.random() * 12 + 6,
-          h: Math.random() * 8 + 4,
-          color: colors[Math.floor(Math.random() * colors.length)],
-          vx: (Math.random() - 0.5) * 20,
-          vy: (Math.random() - 0.5) * 20 - 4,
-          rotation: Math.random() * 360,
-          vRot: (Math.random() - 0.5) * 12,
-          gravity: 0.25,
-          opacity: 1
-        });
-      }
-      if (!animationFrameId) animateConfetti();
-    }
-
-    function animateConfetti() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      for (let i = confettiParticles.length - 1; i >= 0; i--) {
-        const p = confettiParticles[i];
-        p.x += p.vx;
-        p.y += p.vy;
-        p.vy += p.gravity;
-        p.rotation += p.vRot;
-        p.opacity -= 0.008;
-
-        ctx.save();
-        ctx.translate(p.x, p.y);
-        ctx.rotate((p.rotation * Math.PI) / 180);
-        ctx.fillStyle = p.color;
-        ctx.globalAlpha = Math.max(0, p.opacity);
-        ctx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h);
-        ctx.restore();
-
-        if (p.opacity <= 0 || p.y > canvas.height) {
-          confettiParticles.splice(i, 1);
-        }
-      }
-      if (confettiParticles.length > 0) {
-        animationFrameId = requestAnimationFrame(animateConfetti);
-      } else {
-        cancelAnimationFrame(animationFrameId);
-        animationFrameId = null;
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-      }
-    }
 
     // Khởi tạo ban đầu
     window.onload = function() {
